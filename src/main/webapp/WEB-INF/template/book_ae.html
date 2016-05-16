@@ -179,20 +179,27 @@
     $(function () {
         $("#time").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
 
-        $('#ctype').typeahead({
-            source: [
-                { id: 1, name: '历史' },
-                { id: 2, name: '计算机' },
-                { id: 3, name: 'New York' },
-                { id: 4, name: 'Buffalo' },
-                { id: 5, name: 'Boston' },
-                { id: 6, name: 'Columbus' },
-                { id: 7, name: 'Dallas' },
-                { id: 8, name: 'Vancouver' },
-                { id: 9, name: 'Seattle' },
-                { id: 10, name: 'Los Angeles' }
-            ]
+        <#if types??>
+         var types=${types};
+
+         if(types!=null)
+        {
+                var typesd=[];
+                for(var i=0;i<types.length;i++)
+        {
+            typesd[i]={
+                "id":i,
+                "name":types[i]
+        };
+        }
+            $('#ctype').typeahead({
+            source: typesd
         });
+        }
+
+
+        </#if>
+
 
         $("#bookForm").validate({
             rules: {

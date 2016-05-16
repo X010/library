@@ -6,6 +6,7 @@ import com.dssmp.library.model.User;
 import com.dssmp.library.service.BookService;
 import com.dssmp.library.service.UserService;
 import com.dssmp.library.util.CONST;
+import com.dssmp.library.util.JsonTools;
 import com.dssmp.library.util.RequestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -101,6 +102,11 @@ public class MainController {
     @RequestMapping(value = "book_ae.action")
     public ModelAndView book_ae(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView model = new ModelAndView();
+        //获取所有分类
+        List<String> types = this.bookService.queryAllReleaseTypes();
+        if (types != null) {
+            model.addObject("types", JsonTools.jsonSer(types));
+        }
         model.setViewName("book_ae");
         return model;
     }

@@ -3,6 +3,7 @@ package com.dssmp.library.controller;
 import com.dssmp.library.model.Book;
 import com.dssmp.library.service.BookService;
 import com.dssmp.library.util.FileUtil;
+import com.dssmp.library.util.JsonTools;
 import com.dssmp.library.util.RequestUtil;
 import com.google.common.base.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -156,6 +157,11 @@ public class BookController {
         Book book = bookService.queryBookByIsbn(isbn);
         model.addObject("book", book);
         model.setViewName("book_ae");
+        //获取所有分类
+        List<String> types = this.bookService.queryAllReleaseTypes();
+        if (types != null) {
+            model.addObject("types", JsonTools.jsonSer(types));
+        }
         return model;
     }
 
