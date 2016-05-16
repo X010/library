@@ -3,6 +3,7 @@ package com.dssmp.library.controller;
 import com.dssmp.library.model.Book;
 import com.dssmp.library.service.BookService;
 import com.dssmp.library.util.FileUtil;
+import com.dssmp.library.util.RequestUtil;
 import com.google.common.base.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -47,6 +48,8 @@ public class BookController {
         String recomment_word = request.getParameter("keyword");
         String author_describe = request.getParameter("authorDesc");
         String book_describe = request.getParameter("desc");
+        int hot=RequestUtil.getInt(request, "hot", 0);
+        int recommend=RequestUtil.getInt(request,"recommend",0);
 
         Book book = new Book();
         book.setName(name);
@@ -55,6 +58,8 @@ public class BookController {
         book.setPrice(price);
         book.setRelease_time(release_time);
         book.setAuthor(author);
+        book.setHot(hot);
+        book.setRecommend(recommend);
         //设置Photo地址
         if (file != null) {
             photo = FileUtil.saveFileUtil(file);
@@ -105,12 +110,17 @@ public class BookController {
         String author_describe = request.getParameter("authorDesc");
         String book_describe = request.getParameter("desc");
 
+        int hot=RequestUtil.getInt(request, "hot", 0);
+        int recommend=RequestUtil.getInt(request, "recommend", 0);
+
         Book book = new Book();
         book.setName(name);
         book.setIsbn(isbn);
         book.setRelease_type(release_type);
         book.setPrice(price);
         book.setRelease_time(release_time);
+        book.setHot(hot);
+        book.setRecommend(recommend);
         //设置Photo地址
         if (file != null) {
             photo = FileUtil.saveFileUtil(file);

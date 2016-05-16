@@ -32,6 +32,24 @@ public class Book {
     private String recomment_word;
     private String author_describe;
     private String book_describe;
+    private int hot;
+    private int recommend;
+
+    public int getHot() {
+        return hot;
+    }
+
+    public void setHot(int hot) {
+        this.hot = hot;
+    }
+
+    public int getRecommend() {
+        return recommend;
+    }
+
+    public void setRecommend(int recommend) {
+        this.recommend = recommend;
+    }
 
     public int getId() {
         return id;
