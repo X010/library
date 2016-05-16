@@ -1,0 +1,152 @@
+package com.dssmp.library.controller;
+
+import com.dssmp.library.model.Book;
+import com.dssmp.library.service.BookService;
+import com.dssmp.library.util.FileUtil;
+import com.google.common.base.Strings;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+/**
+ * Created by andrew on 16/4/9.
+ */
+@Controller
+@RequestMapping("/book")
+public class BookController {
+    @Autowired
+    private BookService bookService;
+
+    @RequestMapping(value = "addBook.action")
+    public ModelAndView addBook(@RequestParam("cover") MultipartFile file, HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView model = new ModelAndView();
+        String photo = null;
+        String name = request.getParameter("name");
+        String isbn = request.getParameter("code");
+        String release_type = request.getParameter("ctype");
+        String price = request.getParameter("price");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date release_time = null;
+        try {
+            release_time = sdf.parse(request.getParameter("time"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        String author = request.getParameter("author");
+        String book_size = request.getParameter("num");
+        String recomment_word = request.getParameter("keyword");
+        String author_describe = request.getParameter("authorDesc");
+        String book_describe = request.getParameter("desc");
+
+        Book book = new Book();
+        book.setName(name);
+        book.setIsbn(isbn);
+        book.setRelease_type(release_type);
+        book.setPrice(price);
+        book.setRelease_time(release_time);
+        book.setAuthor(author);
+        //设置Photo地址
+        if (file != null) {
+            photo = FileUtil.saveFileUtil(file);
+            if (!Strings.isNullOrEmpty(photo))
+                book.setCover(photo);
+        }
+        book.setBook_size(book_size);
+        book.setAuthor_describe(author_describe);
+        book.setRecomment_word(recomment_word);
+        book.setBook_describe(book_describe);
+
+        boolean isSuccess = bookService.addBook(book);
+        model.addObject("isSuccess", isSuccess);
+        model.setViewName("redirect:/book_m.action");
+
+        return model;
+    }
+
+    @RequestMapping(value = "delBook.action")
+    public ModelAndView delBook(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView model = new ModelAndView();
+        String id = request.getParameter("id");
+        boolean isSuccess = bookService.deleteBook(Integer.parseInt(id));
+        model.addObject("isSuccess", isSuccess);
+        model.setViewName("redirect:/book_m.action");
+        return model;
+    }
+
+    @RequestMapping(value = "modifyBook.action")
+    public ModelAndView modifyBook(@RequestParam("cover") MultipartFile file, HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView model = new ModelAndView();
+        String photo = null;
+        int id = Integer.parseInt(request.getParameter("id"));
+        String name = request.getParameter("name");
+        String isbn = request.getParameter("code");
+        String release_type = request.getParameter("ctype");
+        String price = request.getParameter("price");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date release_time = null;
+        try {
+            release_time = sdf.parse(request.getParameter("time"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        String author = request.getParameter("author");
+        String book_size = request.getParameter("num");
+        String recomment_word = request.getParameter("keyword");
+        String author_describe = request.getParameter("authorDesc");
+        String book_describe = request.getParameter("desc");
+
+        Book book = new Book();
+        book.setName(name);
+        book.setIsbn(isbn);
+        book.setRelease_type(release_type);
+        book.setPrice(price);
+        book.setRelease_time(release_time);
+        //设置Photo地址
+        if (file != null) {
+            photo = FileUtil.saveFileUtil(file);
+            if (!Strings.isNullOrEmpty(photo))
+                book.setCover(photo);
+        }
+        book.setAuthor(author);
+        book.setBook_size(book_size);
+        book.setAuthor_describe(author_describe);
+        book.setRecomment_word(recomment_word);
+        book.setBook_describe(book_describe);
+        book.setId(id);
+        boolean isSuccess = bookService.modifyBook(book);
+        model.addObject("isSuccess", isSuccess);
+        model.setViewName("redirect:/book_m.action");
+        return model;
+    }
+
+    @RequestMapping(value = "querybyname.action")
+    public ModelAndView queryByName(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView model = new ModelAndView();
+        String name = request.getParameter("name");
+        List<Book> books = bookService.queryBookByName(name);
+        model.addObject("books", books);
+        model.setViewName("book_m");
+        return model;
+    }
+
+    @RequestMapping(value = "querybyisbn.action")
+    public ModelAndView queryByIsbn(HttpServletRequest request, HttpServletRequest response) {
+        ModelAndView model = new ModelAndView();
+        String isbn = request.getParameter("isbn");
+        Book book = bookService.queryBookByIsbn(isbn);
+        model.addObject("book", book);
+        model.setViewName("book_ae");
+        return model;
+    }
+
+}

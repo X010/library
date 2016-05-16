@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>图书管理</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/ionicons.min.css">
+    <link rel="stylesheet" href="/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="/css/skins/skin-purple.min.css">
+    <link rel="stylesheet" href="/css/admin.css">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/jquery.easyui.min.1.2.2.js"></script>
+    <script src="/js/admintle.min.js"></script>
+</head>
+<body>
+<div class="content">
+    <section class="content-header">
+        <h1>
+            图书管理
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i>图书</a></li>
+            <li class="active">管理</li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">图书列表</h3>
+                        <div class="box-tools">
+                            <div class="input-group input-group-sm" style="width: 150px;">
+                                <div class="input-group-btn ">
+                                    <a href="book_ae.action" class="btn btn-default pull-right"><i class="fa fa-newspaper-o"></i>新建</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body table-responsive no-padding">
+                        <table class="table table-hover">
+                            <tr>
+                                <th>ISBN</th>
+                                <th>图书名称</th>
+                                <!--<th>触发器名</th>-->
+                                <th>作者</th>
+                                <th>上架类别</th>
+                                <th>定价</th>
+                                <th>出版时间</th>
+                                <th>操作</th>
+                            </tr>
+                            <#if books??>
+                                <#list books as item>
+                                    <tr>
+                                        <td>${item.isbn}</td>
+                                        <td>${item.name}</td>
+                                        <td>${item.author}</td>
+                                        <td>${item.release_type}</td>
+                                        <td>${item.price}</td>
+                                        <td>${item.release_time?string("yyyy-MM-dd")}</td>
+                                        <td>
+                                            <a class="btn btn-yahoo btn-xs" href="book/querybyisbn.action?isbn=${item.isbn}">edit</a> &nbsp;
+                                            <a class="btn btn-danger btn-xs" href="javascript:var r=confirm('确认删除码?');if(r){window.location.href='/book/delBook.action?id=#{item.id}';}">delete</a>
+                                        </td>
+                                    </tr>
+                                </#list>
+                            </#if>
+                        </table>
+                        <div class="box-footer clearfix">
+                            <ul class="pagination pagination-sm no-margin pull-right">
+                                <#if pages??>
+                                    <#if (pages > 0) >
+                                        <#list 1..pages as t>
+                                            <li><a href="book_m.action?page=${t}">${t}</a></li>
+                                        </#list>
+                                    </#if>
+                                </#if>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+</html>
