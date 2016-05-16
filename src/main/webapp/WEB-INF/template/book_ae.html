@@ -25,6 +25,7 @@
     <script src="/js/plugins/datepicker/bootstrap-datepicker.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/jquery.easyui.min.1.2.2.js"></script>
+    <script src="/js/bootstrap-typeahead.js"></script>
     <script src="/js/admintle.min.js"></script>
     <script src="/js/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
     <script src="/js/ckeditor.js"></script>
@@ -161,6 +162,20 @@
     $(function () {
         $("#time").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
 
+        $('#ctype').typeahead({
+            source: [
+                { id: 1, name: '历史' },
+                { id: 2, name: '计算机' },
+                { id: 3, name: 'New York' },
+                { id: 4, name: 'Buffalo' },
+                { id: 5, name: 'Boston' },
+                { id: 6, name: 'Columbus' },
+                { id: 7, name: 'Dallas' },
+                { id: 8, name: 'Vancouver' },
+                { id: 9, name: 'Seattle' },
+                { id: 10, name: 'Los Angeles' }
+            ]
+        });
 
         $("#bookForm").validate({
             rules: {
