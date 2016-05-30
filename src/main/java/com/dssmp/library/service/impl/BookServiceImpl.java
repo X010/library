@@ -25,12 +25,12 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Page<Book> queryBookByPage(int page, int size) {
+    public Page<Book> queryBookByPage(int page, int size,String orderby,String sort) {
         Preconditions.checkArgument(page > 0);
         Preconditions.checkArgument(size > 0);
         Page<Book> bookPage = new Page<>();
         int start = (page - 1) * size;
-        List<Book> books = this.bookDao.queryBookByPage(start, size);
+        List<Book> books = this.bookDao.queryBookByPage(start, size,orderby,sort);
         int count = this.bookDao.countBook();
         bookPage.setData(books);
         bookPage.setRow(count);

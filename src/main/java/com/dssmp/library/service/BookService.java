@@ -38,7 +38,7 @@ public interface BookService {
      * @param size
      * @return
      */
-    Page<Book> queryBookByPage(int page, int size);
+    Page<Book> queryBookByPage(int page, int size,String orderby,String order);
 
     /**
      * 查询所有图书

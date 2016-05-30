@@ -5,6 +5,7 @@ import com.dssmp.library.model.Book;
 import com.dssmp.library.model.Page;
 import com.dssmp.library.service.BookService;
 import com.dssmp.library.util.JsonTools;
+import com.dssmp.library.util.RequestUtil;
 import com.google.common.base.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -116,8 +117,10 @@ public class APIController {
     public String queryBooks(HttpServletRequest request, HttpServletRequest response) {
         int size=Integer.parseInt(request.getParameter("size"));
         int page=Integer.parseInt(request.getParameter("page"));
+        String order= RequestUtil.getString(request, "order", "hot");
+        String sort=RequestUtil.getString(request,"sort","desc");
         String callback=request.getParameter("callback");
-        Page<Book> books=bookService.queryBookByPage(page, size);
+        Page<Book> books=bookService.queryBookByPage(page, size,order,sort);
         APIBookModel<List<Book>> apiBookModel=new APIBookModel<List<Book>>();
         if(books!=null&&books.getRow()>0) {
             apiBookModel.setStatus(200);

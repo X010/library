@@ -34,8 +34,8 @@ public interface BookDao {
     public List<Book> queryAllBook();
 
     @Select("select id,name,isbn,release_type,price,release_time,author,book_size,cover,recomment_word,author_describe," +
-            "book_describe,hot,recommend from t_book order by id desc limit #{start},#{size} ")
-    public List<Book> queryBookByPage(@Param("start") int start, @Param("size") int size);
+            "book_describe,hot,recommend from t_book order by ${orderby} ${sort} limit #{start},#{size} ")
+    public List<Book> queryBookByPage(@Param("start") int start, @Param("size") int size,@Param("orderby") String orderby,@Param("sort") String sort);
 
     /**
      * 统计记录数

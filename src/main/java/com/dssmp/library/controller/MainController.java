@@ -91,7 +91,7 @@ public class MainController {
         ModelAndView model = new ModelAndView();
         int page = RequestUtil.getInt(request, "page", 1);
         int size = RequestUtil.getInt(request, "size", CONST.DEFAULT_SIZE);
-        Page<Book> bookPage = bookService.queryBookByPage(page, size);
+        Page<Book> bookPage = bookService.queryBookByPage(page, size,"id");
         model.addObject("books", bookPage.getData());
         model.addObject("pages", bookPage.getPages());
         model.setViewName("book_m");
