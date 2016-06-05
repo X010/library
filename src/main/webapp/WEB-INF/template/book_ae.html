@@ -106,6 +106,13 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label for="book_size" class="col-sm-2 control-label">开本</label>
+
+                                <div class="col-sm-10">
+                                    <input type="text" style="width: 100px;" class="form-control" <#if book??> <#if book.book_size??>value="${book.book_size}"</#if></#if> name="book_size" id="book_size" placeholder="开本">
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label for="keyword" class="col-sm-2 control-label">推荐词</label>
 
                                 <div class="col-sm-10">
@@ -121,10 +128,10 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="num" class="col-sm-2 control-label">库存/印数</label>
+                                <label for="pages" class="col-sm-2 control-label">印数</label>
 
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" <#if book??><#if book.book_size??> value="${book.book_size}"</#if></#if> style="width: 200px;" name="num" id="num" placeholder="库存/印数">
+                                    <input type="text" class="form-control" <#if book??><#if book.pages??> value="${book.pages}"</#if></#if> style="width: 200px;" name="pages" id="pages" placeholder="印数">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -232,7 +239,8 @@
                     required: true,
                     minlength: 2,
                     maxlength: 20
-                },
+                }
+                /*,
                 keyword: {
                     required: true,
                     minlength: 2,
@@ -252,7 +260,7 @@
                     required: true,
                     minlength: 2,
                     maxlength: 1024
-                }
+                }*/
             },
             messages: {
                 name: {
@@ -284,7 +292,8 @@
                     required: "请输入价格",
                     minlength: "价格最少需要2个字",
                     maxlength: "价格最多不超过20个字"
-                }, keyword: {
+                }
+                /*, keyword: {
                     required: "请输入用推荐词",
                     minlength: "推荐词最少需要2个字",
                     maxlength: "推荐词最多不超过20个字"
@@ -302,7 +311,7 @@
                     required: "请输入描述信息",
                     minlength: "描述信息最少需要2个字",
                     maxlength: "描述信息最多不超过1024个字"
-                }
+                }*/
             },
             submitHandler: function () {
                 return true;

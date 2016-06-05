@@ -28,12 +28,21 @@ public class Book {
     private Date release_time;
     private String author;
     private String book_size;
+    private String pages;
     private String cover;
     private String recomment_word;
     private String author_describe;
     private String book_describe;
     private int hot;
     private int recommend;
+
+    public String getPages() {
+        return pages;
+    }
+
+    public void setPages(String pages) {
+        this.pages = pages;
+    }
 
     public int getHot() {
         return hot;

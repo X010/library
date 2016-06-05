@@ -45,7 +45,9 @@ public class BookController {
             e.printStackTrace();
         }
         String author = request.getParameter("author");
-        String book_size = request.getParameter("num");
+        String pages = request.getParameter("pages");//印数
+//        int size =RequestUtil.getInt(request,"size",0);
+        String book_size=request.getParameter("book_size");//开本
         String recomment_word = request.getParameter("keyword");
         String author_describe = request.getParameter("authorDesc");
         String book_describe = request.getParameter("desc");
@@ -61,13 +63,14 @@ public class BookController {
         book.setAuthor(author);
         book.setHot(hot);
         book.setRecommend(recommend);
+        book.setPages(pages);
+        book.setBook_size(book_size);
         //设置Photo地址
         if (file != null) {
             photo = FileUtil.saveFileUtil(file);
             if (!Strings.isNullOrEmpty(photo))
                 book.setCover(photo);
         }
-        book.setBook_size(book_size);
         book.setAuthor_describe(author_describe);
         book.setRecomment_word(recomment_word);
         book.setBook_describe(book_describe);
@@ -98,6 +101,7 @@ public class BookController {
         String isbn = request.getParameter("code");
         String release_type = request.getParameter("ctype");
         String price = request.getParameter("price");
+        String pages = request.getParameter("pages");
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         Date release_time = null;
         try {
@@ -106,7 +110,7 @@ public class BookController {
             e.printStackTrace();
         }
         String author = request.getParameter("author");
-        String book_size = request.getParameter("num");
+        String book_size = request.getParameter("book_size");
         String recomment_word = request.getParameter("keyword");
         String author_describe = request.getParameter("authorDesc");
         String book_describe = request.getParameter("desc");
@@ -133,6 +137,7 @@ public class BookController {
         book.setAuthor_describe(author_describe);
         book.setRecomment_word(recomment_word);
         book.setBook_describe(book_describe);
+        book.setPages(pages);
         book.setId(id);
         boolean isSuccess = bookService.modifyBook(book);
         model.addObject("isSuccess", isSuccess);

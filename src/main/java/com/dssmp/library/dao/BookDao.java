@@ -25,16 +25,16 @@ import java.util.List;
 public interface BookDao {
 
     @Insert("insert into t_book(name,isbn,release_type,price,release_time,author,book_size,cover,recomment_word," +
-            "author_describe,book_describe,hot,recommend) values(#{name},#{isbn},#{release_type},#{price},#{release_time},#{author}," +
-            "#{book_size},#{cover},#{recomment_word},#{author_describe},#{book_describe},#{hot},#{recommend})")
+            "author_describe,book_describe,hot,recommend,pages) values(#{name},#{isbn},#{release_type},#{price},#{release_time},#{author}," +
+            "#{book_size},#{cover},#{recomment_word},#{author_describe},#{book_describe},#{hot},#{recommend},#{pages})")
     public int addbook(Book book);
 
     @Select("select id,name,isbn,release_type,price,release_time,author,book_size,cover,recomment_word,author_describe," +
-            "book_describe,hot,recommend from t_book order by id desc")
+            "book_describe,hot,recommend,pages from t_book order by id desc")
     public List<Book> queryAllBook();
 
     @Select("select id,name,isbn,release_type,price,release_time,author,book_size,cover,recomment_word,author_describe," +
-            "book_describe,hot,recommend from t_book order by ${orderby} ${sort} limit #{start},#{size} ")
+            "book_describe,hot,recommend,pages from t_book order by ${orderby} ${sort} limit #{start},#{size} ")
     public List<Book> queryBookByPage(@Param("start") int start, @Param("size") int size,@Param("orderby") String orderby,@Param("sort") String sort);
 
     /**
@@ -46,17 +46,17 @@ public interface BookDao {
     public int countBook();
 
     @Select("select id,name,isbn,release_type,price,release_time,author,book_size,cover,recomment_word,author_describe," +
-            "book_describe,hot,recommend from t_book where name=#{name} order by id desc")
+            "book_describe,hot,recommend,pages from t_book where name=#{name} order by id desc")
     public List<Book> queryBookByNanme(@Param(value = "name") String name);
 
 
     @Select("select id,name,isbn,release_type,price,release_time,author,book_size,cover,recomment_word,author_describe," +
-            "book_describe,hot,recommend from t_book where isbn=#{isbn} limit 1")
+            "book_describe,hot,recommend,pages from t_book where isbn=#{isbn} limit 1")
     public Book queryBookByIsbn(@Param(value = "isbn") String isbn);
 
 
     @Select("select id,name,isbn,release_type,price,release_time,author,book_size,cover,recomment_word,author_describe," +
-            "book_describe,hot,recommend from t_book where id=#{id} limit 1")
+            "book_describe,hot,recommend,pages from t_book where id=#{id} limit 1")
     public Book queryBookById(@Param(value = "id") int id);
 
     @Delete("delete from t_book where id=#{id}")
@@ -64,12 +64,12 @@ public interface BookDao {
 
     @Update("update t_book set name=#{name},isbn=#{isbn},release_type=#{release_type},price=#{price},release_time=#{release_time}," +
             "author=#{author},book_size=#{book_size},cover=#{cover},recomment_word=#{recomment_word},author_describe=#{author_describe}," +
-            "book_describe=#{book_describe},hot=#{hot},recommend=#{recommend} where id=#{id}")
+            "book_describe=#{book_describe},hot=#{hot},recommend=#{recommend},pages=#{pages} where id=#{id}")
     public int updateBook(Book book);
 
 
     @Select("select id,name,isbn,release_type,price,release_time,author,book_size,cover,recomment_word,author_describe," +
-            "book_describe,hot,recommend from t_book where name like #{keyword} or author like #{keyword} or isbn=#{keyword} order by id desc")
+            "book_describe,hot,recommend,pages from t_book where name like #{keyword} or author like #{keyword} or isbn=#{keyword} order by id desc")
     public List<Book> queryBookByKeyword(@Param(value = "keyword") String keyword);
 
     @Select("select distinct release_type from t_book")
@@ -77,7 +77,7 @@ public interface BookDao {
 
 
     @Select("select id,name,isbn,release_type,price,release_time,author,book_size,cover,recomment_word,author_describe," +
-            "book_describe,hot,recommend from t_book where release_type=#{release_type}")
+            "book_describe,hot,recommend,pages from t_book where release_type=#{release_type}")
     public List<Book> queryBooksByType(String release_type);
 
 
