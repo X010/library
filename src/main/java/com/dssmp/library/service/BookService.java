@@ -75,14 +75,14 @@ public interface BookService {
      * @param keyword
      * @return
      */
-    List<Book> searchBookByKeyword(String keyword);
+    List<Book> searchBookByKeyword(String keyword,int start,int size);
 
     /**
      * 获取分类下的图书
      * @param release_type
      * @return
      */
-    List<Book> queryBooksByType(String release_type);
+    List<Book> queryBooksByType(String release_type,int start,int size);
 
     /**
      * 获取所有分类

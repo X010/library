@@ -47,12 +47,12 @@ public class BookController {
         String author = request.getParameter("author");
         String pages = request.getParameter("pages");//印数
 //        int size =RequestUtil.getInt(request,"size",0);
-        String book_size=request.getParameter("book_size");//开本
+        String book_size = request.getParameter("book_size");//开本
         String recomment_word = request.getParameter("keyword");
         String author_describe = request.getParameter("authorDesc");
         String book_describe = request.getParameter("desc");
-        int hot=RequestUtil.getInt(request, "hot", 0);
-        int recommend=RequestUtil.getInt(request,"recommend",0);
+        int hot = RequestUtil.getInt(request, "hot", 0);
+        int recommend = RequestUtil.getInt(request, "recommend", 0);
 
         Book book = new Book();
         book.setName(name);
@@ -114,9 +114,9 @@ public class BookController {
         String recomment_word = request.getParameter("keyword");
         String author_describe = request.getParameter("authorDesc");
         String book_describe = request.getParameter("desc");
-
-        int hot=RequestUtil.getInt(request, "hot", 0);
-        int recommend=RequestUtil.getInt(request, "recommend", 0);
+        String cover_hidden = request.getParameter("cover_hidden");
+        int hot = RequestUtil.getInt(request, "hot", 0);
+        int recommend = RequestUtil.getInt(request, "recommend", 0);
 
         Book book = new Book();
         book.setName(name);
@@ -131,6 +131,10 @@ public class BookController {
             photo = FileUtil.saveFileUtil(file);
             if (!Strings.isNullOrEmpty(photo))
                 book.setCover(photo);
+            else
+                book.setCover(cover_hidden);
+        } else {
+            book.setCover(cover_hidden);
         }
         book.setAuthor(author);
         book.setBook_size(book_size);

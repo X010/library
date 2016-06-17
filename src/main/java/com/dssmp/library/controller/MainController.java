@@ -94,6 +94,7 @@ public class MainController {
         Page<Book> bookPage = bookService.queryBookByPage(page, size,"id","desc");
         model.addObject("books", bookPage.getData());
         model.addObject("pages", bookPage.getPages());
+        model.addObject("page",page);
         model.setViewName("book_m");
         return model;
     }

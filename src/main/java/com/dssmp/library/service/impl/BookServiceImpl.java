@@ -60,14 +60,14 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> searchBookByKeyword(String keyword) {
+    public List<Book> searchBookByKeyword(String keyword,int start,int size) {
         keyword="%"+keyword+"%";
-        return bookDao.queryBookByKeyword(keyword);
+        return bookDao.queryBookByKeyword(keyword,start,size);
     }
 
     @Override
-    public List<Book> queryBooksByType(String release_type) {
-        return bookDao.queryBooksByType(release_type);
+    public List<Book> queryBooksByType(String release_type,int page,int size) {
+        return bookDao.queryBooksByType(release_type,page,size);
     }
 
     @Override

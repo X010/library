@@ -69,16 +69,24 @@ public interface BookDao {
 
 
     @Select("select id,name,isbn,release_type,price,release_time,author,book_size,cover,recomment_word,author_describe," +
-            "book_describe,hot,recommend,pages from t_book where name like #{keyword} or author like #{keyword} or isbn=#{keyword} order by id desc")
-    public List<Book> queryBookByKeyword(@Param(value = "keyword") String keyword);
+            "book_describe,hot,recommend,pages from t_book where name like #{keyword} or author like #{keyword} or isbn=#{keyword} order by id desc limit #{start},#{size}")
+    public List<Book> queryBookByKeyword(@Param(value = "keyword") String keyword,@Param("start") int start,@Param("size") int size);
+
+
+    @Select("select count(*) c from t_book where name like #{keyword} or author like #{keyword} or isbn=#{keyword} order by id desc")
+    public int queryBooksCountByKeyword(@Param(value = "keyword") String keyword);
 
     @Select("select distinct release_type from t_book")
     public List<String> queryAllType();
 
 
     @Select("select id,name,isbn,release_type,price,release_time,author,book_size,cover,recomment_word,author_describe," +
-            "book_describe,hot,recommend,pages from t_book where release_type=#{release_type}")
-    public List<Book> queryBooksByType(String release_type);
+            "book_describe,hot,recommend,pages from t_book where release_type=#{release_type} limit #{start},#{size}")
+    public List<Book> queryBooksByType(@Param("release_type") String release_type,@Param("start") int start, @Param("size") int size);
+
+
+    @Select("select count(*) c from t_book where release_type=#{release_type}")
+    public int queryBooksCountByType(@Param("release_type") String release_type);
 
 
 }

@@ -54,7 +54,10 @@ public class APIController {
     public String searchBook(HttpServletRequest request, HttpServletRequest response) {
         String keyword=request.getParameter("keyword");
         String callback=request.getParameter("callback");
-        List<Book> books=bookService.searchBookByKeyword(keyword);
+        int page=RequestUtil.getInt(request, "page", 0);
+        int size=RequestUtil.getInt(request, "size", 20);
+        int start = (page - 1) * size;
+        List<Book> books=bookService.searchBookByKeyword(keyword,start,size);
         APIBookModel<List<Book>> apiBookModel=new APIBookModel<List<Book>>();
         if(!books.isEmpty()) {
             apiBookModel.setStatus(200);
@@ -76,7 +79,10 @@ public class APIController {
     public String queryBookByType(HttpServletRequest request, HttpServletRequest response) {
         String release_type=request.getParameter("release_type");
         String callback=request.getParameter("callback");
-        List<Book> books=bookService.queryBooksByType(release_type);
+        int page=RequestUtil.getInt(request, "page", 0);
+        int size=RequestUtil.getInt(request,"size",20);
+        int start = (page - 1) * size;
+        List<Book> books=bookService.queryBooksByType(release_type,start,size);
         APIBookModel<List<Book>> apiBookModel=new APIBookModel<List<Book>>();
         if(!books.isEmpty()) {
             apiBookModel.setStatus(200);

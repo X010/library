@@ -77,7 +77,11 @@
                                 <#if pages??>
                                     <#if (pages > 0) >
                                         <#list 1..pages as t>
+                                            <#if page == t>
+                                                <li style="background: #003bb3"><a href="#" style="color:green;background: greenyellow">${t}</a></li>
+                                            <#else>
                                             <li><a href="book_m.action?page=${t}">${t}</a></li>
+                                            </#if>
                                         </#list>
                                     </#if>
                                 </#if>
