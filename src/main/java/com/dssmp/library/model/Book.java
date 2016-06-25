@@ -1,5 +1,6 @@
 package com.dssmp.library.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -19,7 +20,7 @@ import java.util.Date;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public class Book {
+public class Book implements Serializable{
     private int id;
     private String name;
     private String isbn;

@@ -3,7 +3,7 @@ package com.dssmp.library.model;
 /**
  * Created by b3st9u on 16/4/13.
  */
-public class APIBookModel <T>{
+public class APIBookModel <T> {
     private int status;
     private String msg;
     private T data;
